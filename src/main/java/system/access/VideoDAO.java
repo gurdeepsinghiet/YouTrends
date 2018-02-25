@@ -1,5 +1,6 @@
 package system.access;
 
+import java.sql.Timestamp;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -17,15 +18,15 @@ public class VideoDAO extends AbstractDAO
         super(dataSource);
     }
 
-    public void insertVideos(List<Video> videos)
+    public void insertVideos(List<Video> videos, Timestamp dateOfInsert)
     {
-        videos.forEach(this::insertVideo);
+        videos.forEach(video -> insertVideo(video, dateOfInsert));
     }
 
-    public void insertVideo(Video video)
+    public void insertVideo(Video video, Timestamp dateOfInsert)
     {
         String query = "INSERT INTO Video (videoId, title, description, channel, imgUrl, old, viewCount, date) " +
-                       "VALUES (?,?,?,?,?,?,?, now())";
+                       "VALUES (?,?,?,?,?,?,?,?)";
 
         try
         {
@@ -36,7 +37,8 @@ public class VideoDAO extends AbstractDAO
                                 video.getChannel(),
                                 video.getImgUrl(),
                                 video.getOld(),
-                                video.getViewCount());
+                                video.getViewCount(),
+                                dateOfInsert);
         }
         catch (Exception e)
         {
@@ -65,5 +67,22 @@ public class VideoDAO extends AbstractDAO
         }
 
         return titles;
+    }
+
+    public Timestamp getLastInsertDate()
+    {
+        String query = "SELECT date FROM Video ORDER BY date DESC LIMIT 1";
+
+        Timestamp date = new Timestamp(0);
+
+        // Incredible crutch, but jdbcTemplate.queryForObject not working. smth throwable exception.
+        jdbcTemplate.query(query,
+                           rs ->
+                           {
+                               date.setTime(rs.getTimestamp("date").getTime());
+                           }
+                          );
+
+        return date;
     }
 }
