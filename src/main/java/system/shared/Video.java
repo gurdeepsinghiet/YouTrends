@@ -2,6 +2,7 @@ package system.shared;
 
 import java.awt.image.BufferedImage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +18,13 @@ public class Video
     private String imgUrl;
     private String old;
     private long viewCount;
-    private BufferedImage image;
+
     // FileId - need for incremental send photo without downloading photo again.
+    @JsonIgnore
     private String fileId;
+
+    @JsonIgnore
+    private BufferedImage image;
 
     public Video(String id, String title, String imgUrl)
     {

@@ -30,4 +30,9 @@ public class LastFeedContainer
     {
         this.feed = feed;
     }
+
+    public List<Video> getAllFeed()
+    {
+        return feed.getVideos();
+    }
 }
