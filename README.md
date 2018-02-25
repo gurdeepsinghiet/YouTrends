@@ -25,28 +25,28 @@
 - sort by count of views;<br>
 - feed contains 10 videos (for you after filtration).<br>
 <h2>YouTube Trending REST API</h2>
-<b>You can get YouTube Trending feed for FREE on www.youtrends.org</b>
+<b>You can get YouTube Trending feed for FREE on www.youtrends.org:8080</b>
 <h3>Methods</h3>
 <h4>1) Trending.</h4>
 This is main method. You can get feed from YouTube Trending.<br>
 Example request:<br>
-http://www.youtrends.org/trends<br>
+http://www.youtrends.org:8080/trends<br>
 Response:<br>
 Array of Video.<br>
 <h4>2) Popular words.</h4>
 Return popular word in video titles by last week.<br>
 Example request:<br>
-http://www.youtrends.org/popularWords<br>
+http://www.youtrends.org:8080/popularWords<br>
 Response:<br>
 Array of top popular words with count entries by last week<br>
 <h4>3) Top channels by unique videos in trending by last week.</h4>
 Example request:<br>
-http://www.youtrends.org/topByVideosCount<br>
+http://www.youtrends.org:8080/topByVideosCount<br>
 Response:<br>
 Array of top channels with count videos by last week<br>
 <h4>4) Top channels by count hours in trending by last week.</h4>
 Example request:<br>
-http://www.youtrends.org/topByHoursCount<br>
+http://www.youtrends.org:8080/topByHoursCount<br>
 Response:<br>
 Array of top channels with count hours in trending by last week<br>
 
