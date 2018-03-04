@@ -5,15 +5,13 @@ import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.access.UserDAO;
 import system.access.VideoDAO;
 
+@Log4j2
 public class Starter
 {
-    private static final Logger logger = LogManager.getLogger(Starter.class);
-
     private static final int DISPATCHER_PERIOD = 1; // Days
 
     private static final int DISPATCHER_HOUR = 20;
@@ -29,7 +27,7 @@ public class Starter
         }
         catch (Exception e)
         {
-            logger.error("Some error", e);
+            log.error("Some error", e);
         }
     }
 

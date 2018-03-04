@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.imageio.ImageIO;
 
 import com.google.common.collect.Lists;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
@@ -33,14 +31,13 @@ import system.shared.Settings;
 import system.shared.User;
 import system.shared.Video;
 
+@Log4j2
 public class Telegram extends TelegramLongPollingBot
 {
     static
     {
         ApiContextInitializer.init(); // Telegram API (must be init in static context)
     }
-
-    private static final Logger logger = LogManager.getLogger(Telegram.class);
 
     private static final String GET_TRENDS_CMD = "/trends";
     private static final String SUBSCRIBE_CMD = "/subscribe";
@@ -113,7 +110,7 @@ public class Telegram extends TelegramLongPollingBot
         }
         catch (TelegramApiRequestException e)
         {
-            logger.error("Error creating bot", e);
+            log.error("Error creating bot", e);
         }
     }
 
@@ -295,7 +292,7 @@ public class Telegram extends TelegramLongPollingBot
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
     }
 
@@ -322,7 +319,7 @@ public class Telegram extends TelegramLongPollingBot
             }
             catch (Exception e)
             {
-                logger.error("Command executor error", e);
+                log.error("Command executor error", e);
             }
         }
     }
@@ -396,13 +393,13 @@ public class Telegram extends TelegramLongPollingBot
                 }
                 catch (Exception e)
                 {
-                    logger.error("Can't send video", e);
+                    log.error("Can't send video", e);
                 }
             }
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
     }
 
@@ -416,7 +413,7 @@ public class Telegram extends TelegramLongPollingBot
         }
         catch (Exception e)
         {
-            logger.error("Send message trouble", e);
+            log.error("Send message trouble", e);
         }
     }
 }

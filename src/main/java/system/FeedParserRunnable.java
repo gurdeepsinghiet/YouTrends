@@ -6,16 +6,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.access.VideoDAO;
 import system.parser.YouTubeParser;
 import system.shared.Feed;
 
+@Log4j2
 public class FeedParserRunnable implements Runnable
 {
-    private static final Logger logger = LogManager.getLogger(FeedParserRunnable.class);
-
     private final ImageCollector imageCollector = new ImageCollector();
     private final LastFeedContainer lastFeedContainer;
     private final VideoDAO videoDAO;
@@ -56,13 +54,13 @@ public class FeedParserRunnable implements Runnable
                     return;
                 }
 
-                logger.warn("Cant get feed");
+                log.warn("Cant get feed");
                 Thread.sleep(TimeUnit.MINUTES.toMillis(10));
             }
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
     }
 
@@ -70,21 +68,21 @@ public class FeedParserRunnable implements Runnable
     {
         try
         {
-            logger.info("Start feed collect");
+            log.info("Start feed collect");
             ScheduledFuture<Feed> future = Executors.newSingleThreadScheduledExecutor()
                                                     .schedule(new YouTubeParser(),
                                                               0,
                                                               TimeUnit.MICROSECONDS);
 
             Feed feed = future.get();
-            logger.info("Feed was collect. Feed size: {}", feed.getVideos().size());
-            logger.info("Start collect images");
+            log.info("Feed was collect. Feed size: {}", feed.getVideos().size());
+            log.info("Start collect images");
             imageCollector.collectImages(feed);
             return feed;
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
             return new Feed();
         }
     }

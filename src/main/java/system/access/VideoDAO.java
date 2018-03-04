@@ -5,14 +5,12 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.google.common.collect.Lists;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.shared.Video;
 
+@Log4j2
 public class VideoDAO extends AbstractDAO
 {
-    private static final Logger logger = LogManager.getLogger(VideoDAO.class);
-
     public VideoDAO(DataSource dataSource)
     {
         super(dataSource);
@@ -42,13 +40,13 @@ public class VideoDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Insert video error");
+            log.error("Insert video error");
         }
     }
 
-    public List<String> getUniqueTitlesByLastWeek()
+    public List<String> getUniqueTitlesByLastDay()
     {
-        String query = "SELECT DISTINCT title FROM Video WHERE date > (now() - INTERVAL '1 week')";
+        String query = "SELECT DISTINCT title FROM Video WHERE date > (now() - INTERVAL '1 day')";
 
         List<String> titles = Lists.newArrayList();
 
@@ -63,7 +61,7 @@ public class VideoDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Insert video error");
+            log.error("Insert video error");
         }
 
         return titles;

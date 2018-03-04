@@ -15,22 +15,20 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import system.access.PopularWordsDAO;
 import system.access.VideoDAO;
 import system.shared.BannedPopularWord;
 import system.shared.KeyValueEntry;
 
 /**
- * Class provide processing popular word in video titles by last week.
+ * Class provide processing popular word in video titles by last day.
  * This class controlling schedule of calculate and writing words into database.
  */
+@Log4j2
 public class WordsFrequencyAnalyser implements Runnable
 {
-    private static final Logger logger = LogManager.getLogger(WordsFrequencyAnalyser.class);
-
     private VideoDAO videoDAO;
     private PopularWordsDAO popularWordsDAO;
 
@@ -123,14 +121,14 @@ public class WordsFrequencyAnalyser implements Runnable
         }
         catch (IOException e)
         {
-            logger.error("Something wrong with bannedPopularWords.csv reading", e);
+            log.error("Something wrong with bannedPopularWords.csv reading", e);
         }
 
         return bannedPopularWordList;
     }
 
     /**
-     * Get popular words from video titles by last week.
+     * Get popular words from video titles by last day.
      *
      * @param bannedPopularWords - words that will be filtered form results
      * @return - map that contain word as key and count entries of this word in titles as value.
@@ -139,7 +137,7 @@ public class WordsFrequencyAnalyser implements Runnable
     {
         Map<String, Integer> popularWords = Maps.newHashMap();
 
-        List<String> titles = videoDAO.getUniqueTitlesByLastWeek();
+        List<String> titles = videoDAO.getUniqueTitlesByLastDay();
 
         for (String title : titles)
         {

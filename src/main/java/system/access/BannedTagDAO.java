@@ -2,17 +2,14 @@ package system.access;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.shared.User;
 
+@Log4j2
 public class BannedTagDAO extends AbstractDAO
 {
-    private static final Logger logger = LogManager.getLogger(BannedTagDAO.class);
-
     public BannedTagDAO(DataSource dataSource)
     {
         super(dataSource);
@@ -37,7 +34,7 @@ public class BannedTagDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return bannedTags;

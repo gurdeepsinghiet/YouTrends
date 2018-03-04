@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import system.access.ChannelAnalytics;
 import system.shared.Video;
 
+@Log4j2
 @RestController
 public class FeedController
 {
-    private static final Logger logger = LogManager.getLogger(FeedController.class);
-
     @Autowired
     private LastFeedContainer lastFeedContainer;
 
@@ -38,7 +36,7 @@ public class FeedController
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return feed;
@@ -55,7 +53,7 @@ public class FeedController
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return words;
@@ -72,7 +70,7 @@ public class FeedController
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return channels;
@@ -89,7 +87,7 @@ public class FeedController
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return channels;

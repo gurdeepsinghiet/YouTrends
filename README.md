@@ -34,11 +34,11 @@ http://www.youtrends.org:8080/trends<br>
 Response:<br>
 Array of Video.<br>
 <h4>2) Popular words.</h4>
-Return popular word in video titles by last week.<br>
+Return popular word in video titles by last day.<br>
 Example request:<br>
 http://www.youtrends.org:8080/popularWords<br>
 Response:<br>
-Array of top popular words with count entries by last week<br>
+Array of top popular words with count entries by last day<br>
 <h4>3) Top channels by unique videos in trending by last week.</h4>
 Example request:<br>
 http://www.youtrends.org:8080/topByVideosCount<br>

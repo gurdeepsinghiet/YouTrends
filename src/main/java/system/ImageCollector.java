@@ -2,18 +2,15 @@ package system;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.shared.Feed;
 import system.shared.Video;
 
+@Log4j2
 public class ImageCollector
 {
-    private static final Logger logger = LogManager.getLogger(ImageCollector.class);
-
     void collectImages(Feed feed)
     {
         for (Video video : feed.getVideos())
@@ -26,11 +23,11 @@ public class ImageCollector
             }
             catch (MalformedURLException e)
             {
-                logger.warn("collect image error on video {}", video.getTitle());
+                log.warn("collect image error on video {}", video.getTitle());
             }
             catch (Exception e)
             {
-                logger.error("Error", e);
+                log.error("Error", e);
             }
         }
     }

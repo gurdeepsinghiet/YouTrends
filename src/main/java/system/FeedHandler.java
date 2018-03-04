@@ -5,15 +5,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import system.shared.Feed;
 import system.shared.Video;
 
+@Log4j2
 public class FeedHandler
 {
-    private static final Logger logger = LogManager.getLogger(FeedHandler.class);
-
     private List<String> bannedChannels;
     private List<String> bannedTags;
 
@@ -42,7 +40,7 @@ public class FeedHandler
 
             if (matcher.find())
             {
-                logger.info("Тег-фильтрация в названии: [{}] {}", word, video.getTitle());
+                log.info("Тег-фильтрация в названии: [{}] {}", word, video.getTitle());
                 return false;
             }
         }
@@ -64,7 +62,7 @@ public class FeedHandler
 
             if (matcher.find())
             {
-                logger.info("Тег-фильтрация в описании: [{}]{} ", word, video.getDescription());
+                log.info("Тег-фильтрация в описании: [{}]{} ", word, video.getDescription());
                 return false;
             }
         }
@@ -78,7 +76,7 @@ public class FeedHandler
         {
             if (video.getOld() == null)
             {
-                logger.warn("Video no have old. {}", video.toString());
+                log.warn("Video no have old. {}", video.toString());
                 return false;
             }
 
@@ -88,7 +86,7 @@ public class FeedHandler
         }
         catch (Exception e)
         {
-            logger.error("Error on filtration by old", e);
+            log.error("Error on filtration by old", e);
         }
 
         return false;
@@ -103,7 +101,7 @@ public class FeedHandler
 
             if (matcher.find())
             {
-                logger.info("Канал-фильтрация: [{}] {}", channel, video.getTitle());
+                log.info("Канал-фильтрация: [{}] {}", channel, video.getTitle());
                 return false;
             }
         }

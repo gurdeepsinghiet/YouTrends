@@ -2,18 +2,15 @@ package system.access;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.mutable.MutableBoolean;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import system.shared.User;
 
+@Log4j2
 public class UserDAO extends AbstractDAO
 {
-    private static final Logger logger = LogManager.getLogger(UserDAO.class);
-
     public UserDAO(DataSource dataSource)
     {
         super(dataSource);
@@ -39,7 +36,7 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
     }
 
@@ -76,10 +73,10 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
-        logger.info("Subscription: " + user.getId());
+        log.info("Subscription: " + user.getId());
     }
 
     public void unsubscribeUser(User user)
@@ -92,10 +89,10 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
-        logger.info("Unsubscribing: " + user.getId());
+        log.info("Unsubscribing: " + user.getId());
     }
 
     public List<User> getSubscribeUsers()
@@ -126,7 +123,7 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return users;
@@ -147,7 +144,7 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return bannedChannels;
@@ -168,7 +165,7 @@ public class UserDAO extends AbstractDAO
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
         }
 
         return bannedTags;
