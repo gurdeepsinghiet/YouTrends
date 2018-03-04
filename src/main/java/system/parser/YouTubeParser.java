@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.google.common.base.CharMatcher;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +19,9 @@ import system.parser.shared.YouTubeVideoItem;
 import system.shared.Feed;
 import system.shared.Video;
 
+@Log4j2
 public class YouTubeParser implements Callable<Feed>
 {
-    private static final Logger logger = LogManager.getLogger(YouTubeParser.class);
-
     private static final String TRENDING_URL = "https://www.youtube.com/feed/trending?hl=ru&gl=RU";
     private static final long YOUTUBE_WAIT_TIME = 10000; // ms
 
@@ -34,7 +32,7 @@ public class YouTubeParser implements Callable<Feed>
     {
         try
         {
-            logger.info("Start YouTube parsing");
+            log.info("Start YouTube parsing");
             WebClient webClient = new WebClient();
 
             webClient.getOptions().setJavaScriptEnabled(false);
@@ -118,24 +116,24 @@ public class YouTubeParser implements Callable<Feed>
                             }
                             catch (ImageUrlNotExistException e)
                             {
-                                logger.warn("Image URL not found");
+                                log.warn("Image URL not found");
                             }
                             catch (JSONException e)
                             {
-                                logger.error("JSON Error", e);
+                                log.error("JSON Error", e);
                                 // Выводим последнее видео на котором выпал exception,
                                 // чтобы потом по логам чекнуть где трабла
-                                logger.warn(feed.getVideos().get(feed.getVideos().size() - 1).toString());
+                                log.warn(feed.getVideos().get(feed.getVideos().size() - 1).toString());
                             }
                             catch (Exception e)
                             {
-                                logger.error("Item parsing exception", e);
+                                log.error("Item parsing exception", e);
                             }
                         }
                     }
                     catch (Exception e)
                     {
-                        logger.error("Contents parsing exception", e);
+                        log.error("Contents parsing exception", e);
                     }
                 }
             }
@@ -144,7 +142,7 @@ public class YouTubeParser implements Callable<Feed>
         }
         catch (Exception e)
         {
-            logger.error("Error", e);
+            log.error("Error", e);
             return null;
         }
     }
